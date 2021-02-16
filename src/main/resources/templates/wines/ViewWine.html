@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/LayoutPadrao">
+
+<head>
+    <title th:text="${wine.name}"></title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/uikit.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/upload.min.css}"/>
+</head>
+
+<body>
+<section layout:fragment="conteudo">
+
+    <div class="page-header">
+        <div class="container-fluid">
+            <h1 th:text="${wine.name}"></h1>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="rol">
+            <div class="col-sm-9 js-container-photo">
+                <div id="upload-drop" class="wn-upload" th:attr="data-code=${wine.code}" >
+                    <img th:src="${wine.url}" th:if="${wine.hasPhoto()}" class="img-responsive" style="margin: auto;" />
+                    <img th:src="@{/images/wine-mockup.jpg}" th:if="${#strings.isEmpty(wine.photo)}" />
+                    <div>
+                        <span>Arraste a foto aqui ou</span>
+                        <a class="wn-upload-form-file">Selecione <input id="upload-select" type="file" accept=".jpg,.png,.gif,.jpeg"/></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <ul class="list-group">
+                <li class="list-group-item" th:text="|Vinho ${wine.type.description}|"></li>
+                <li class="list-group-item" th:text="|${wine.content}ml|"></li>
+                <li class="list-group-item" th:text="|${wine.harvest}|"></li>
+                <li class="list-group-item" th:text="|R$ ${wine.price}|"></li>
+            </ul>
+        </div>
+    </div>
+
+</section>
+
+<th:block layout:fragment="extra-javascript">
+    <script th:src="@{/javascripts/vendors/uikit.min.js}"></script>
+    <script th:src="@{/javascripts/vendors/upload.min.js}"></script>
+    <script th:src="@{/javascripts/wine.upload-photo.js}"></script>
+</th:block>
+
+</body>
+</html>
